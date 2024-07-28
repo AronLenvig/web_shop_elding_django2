@@ -1,0 +1,54 @@
+{% extends "_base.html" %}
+{% load breadcrumb_tags %}
+
+
+{% block title %}
+    {{ product.name }}
+{% endblock %}
+
+{% block content %}
+    {% breadcrumb_tag breadcrumbs %}
+    <div class="py-8">
+        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <div class="p-4 flex flex-col lg:flex-row">
+                <!-- Main Image Section -->
+                <div class="w-full lg:w-1/2 flex justify-center items-center">
+                    <img id="main-image" src="{{ images.first.image.url }}" alt="{{ product.name }}" class="w-full h-auto mb-4 object-cover">
+                </div>
+                <!-- Product Details Section -->
+                <div class="w-full lg:w-1/2 p-4">
+                    <h2 class="text-3xl font-semibold mb-2">{{ product.name }}</h2>
+                    <p class="text-gray-700 mb-1">SKU: {{ product.SKU }}</p>
+                    <p class="text-gray-700 mb-1">Description: {{ product.description }}</p>
+                    <p class="text-gray-700 mb-4">Price: ${{ product.price }}</p>
+
+                    <!-- Product Bullet Points -->
+                    <ul class="mt-4">
+                        {% for bullet in bullet_points %}
+                            <li class="text-gray-700">{{ bullet.text }}</li>
+                        {% endfor %}
+                    </ul>
+
+                    <!-- Product Specifications -->
+                    <table class="mt-4 w-full">
+                        {% for spec in specifications %}
+                            <tr>
+                                <td class="font-semibold text-gray-700">{{ spec.key }}</td>
+                                <td class="text-gray-700">{{ spec.value }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to handle image click to change the main image
+        document.querySelectorAll('.product-thumbnail').forEach(image => {
+            image.addEventListener('click', function() {
+                document.getElementById('main-image').src = this.src;
+            });
+        });
+    </script>
+{% endblock %}
