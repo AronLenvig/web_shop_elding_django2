@@ -37,6 +37,7 @@ class ProductDetailView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['product'].price = round(context['product'].price)
         product = self.get_object()
         context['images'] = product.images.all()
         context['bullet_points'] = product.bullet_points.all()
