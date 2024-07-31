@@ -88,7 +88,7 @@ CKEDITOR_5_CONFIGS = {
                 'X-CSRF-TOKEN': 'CSRF-Token',
                 'Authorization': 'Bearer <JSON Web Token>'
             }
-        }
+        },
     }
 }
 

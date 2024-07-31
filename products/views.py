@@ -18,6 +18,8 @@ class IndexView(generic.ListView):
         products_with_images = []
         for product in products:
             first_image_url = product.images.first().image.url if product.images.exists() else 'default_image_url'
+            product.price = round(product.price)
+
             product_data = {
                 'product': product,
                 'first_image_url': first_image_url

@@ -9,7 +9,6 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
-    <title>Django + Tailwind CSS + Flowbite</title>
 
     {% compress css %}
     <link rel="stylesheet" href="{% static 'src/output.css' %}" />
@@ -22,7 +21,7 @@
 
     <title>
       {% block title %}
-        Django + Tailwind CSS + Flowbite
+        Elding
       {% endblock %}
     </title>
 
@@ -41,7 +40,9 @@
     <!-- Add this -->
     <nav class="bg-elding-blue border-gray-200 dark:bg-gray-900">
       <div class="flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse"><img src="/media/elding_logo_full.webp" class="h-8" alt="Elding Logo" /></a>
+        <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+          <img src="/media/elding_logo_full.webp" class="h-8 w-auto hover:scale-105 transition-transform duration-200" alt="Elding Logo" />
+      </a>
         <div class="flex md:order-2">
           <button id="theme-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 hover:bg-opacity-80 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300 focus:ring-opacity-50 dark:focus:ring-gray-600 dark:focus:ring-opacity-50 rounded-lg text-sm p-2.5">
             <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
