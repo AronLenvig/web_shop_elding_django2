@@ -7,30 +7,12 @@
 
 {% block extra_css %}
   <style>
-    swiper-container {
-      width: 100%;
-      height: 100%;
-    }
-    
     swiper-slide {
       text-align: center;
       font-size: 18px;
-      background: #fff;
       display: flex;
       justify-content: center;
       align-items: center;
-    }
-    
-    swiper-slide img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    
-    body {
-      background: #000;
-      color: #000;
     }
     
     swiper-container {
@@ -68,14 +50,13 @@
     
     swiper-slide img {
       display: block;
-      width: 100%;
       height: 100%;
       object-fit: cover;
     }
-
+    
     #product-long-description span {
-        background-color: transparent !important;
-        color: inherit !important;
+      background-color: transparent !important;
+      color: inherit !important;
     }
   </style>
 {% endblock %}
@@ -87,10 +68,10 @@
     <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0">
       <div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16 py-2">
         <div class="shrink-0 max-w-md lg:max-w-lg mx-auto">
-          <swiper-container style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="mySwiper border-gray-200 dark:border-gray-600" thumbs-swiper=".mySwiper2" space-between="10" navigation="true">
+          <swiper-container class="mySwiper border-gray-200 dark:border-gray-600" thumbs-swiper=".mySwiper2" space-between="10" navigation="true">
             {% for image in images %}
               <swiper-slide>
-                <img src="{{ image.image.url }}" />
+                <img src="{{ image.image.url }}" class="border border-gray-200 dark:border-gray-600 rounded-lg" />
               </swiper-slide>
             {% endfor %}
           </swiper-container>
@@ -105,7 +86,7 @@
 
         <div class="mt-6 sm:mt-8 lg:mt-0">
           <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">{{ product.name }}</h1>
-            <p class="mt-2 text-gray-500 dark:text-gray-400">{{ product.SKU }}</p>
+          <p class="mt-2 text-gray-500 dark:text-gray-400">{{ product.SKU }}</p>
           <div class="mt-4 sm:items-center sm:gap-4 sm:flex">
             <p class="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white">{{ product.price }},-</p>
           </div>
@@ -125,21 +106,21 @@
           </div>
           <hr class="my-6 md:my-8 border-gray-200 dark:border-gray-800" />
           <p class="mb-6 text-black dark:text-white">{{ product.description }}</p>
-          <ul class="mt-4">
+          <ul class="my-4">
             {% for bullet in bullet_points %}
-              <li class="text-gray-700">{{ bullet.text }}</li>
+              <li class="text-gray-700 dark:text-white">- {{ bullet.text }}</li>
             {% endfor %}
           </ul>
         </div>
         <div id="product-long-description" class="mb-6 text-black dark:text-white">{{ product.long_description|safe }}</div>
         <table class="mt-4 w-full">
-            {% for spec in specifications %}
-              <tr>
-                <td class="font-semibold text-gray-700">{{ spec.key }}</td>
-                <td class="text-gray-700">{{ spec.value }}</td>
-              </tr>
-            {% endfor %}
-          </table>
+          {% for spec in specifications %}
+            <tr>
+              <td class="font-semibold text-gray-700">{{ spec.key }}</td>
+              <td class="text-gray-700">{{ spec.value }}</td>
+            </tr>
+          {% endfor %}
+        </table>
       </div>
     </div>
   </section>
