@@ -12,11 +12,22 @@ class ProductAdminForm(forms.ModelForm):
         model = Product
         fields = '__all__'
 
+class ProductBulletPointInline(admin.TabularInline):
+    model = ProductBulletPoint
+    extra = 3
+    max_num = 3
+
+class ProductSpecificationInline(admin.TabularInline):
+    model = ProductSpecification
+    extra = 1
+
+class ProductImageInline(admin.TabularInline):
+    model = ProductImage
+    extra = 1
+
 class ProductAdmin(admin.ModelAdmin):
     form = ProductAdminForm
+    inlines = [ProductBulletPointInline, ProductSpecificationInline, ProductImageInline]
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category)
-admin.site.register(ProductImage)
-admin.site.register(ProductBulletPoint)
-admin.site.register(ProductSpecification)

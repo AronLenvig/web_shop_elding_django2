@@ -4,8 +4,6 @@ import os
 from django.utils.deconstruct import deconstructible
 from django.utils.text import slugify
 
-# Create your models here.
-
 @deconstructible
 class UploadToPathAndRename(object):
     def __init__(self, path):
@@ -17,7 +15,6 @@ class UploadToPathAndRename(object):
         return os.path.join(self.sub_path, product_sku, filename)
 
 upload_to = UploadToPathAndRename("products/")
-
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
@@ -38,6 +35,14 @@ class Category(models.Model):
             self.slug = slugify(self.name)
         super(Category, self).save(*args, **kwargs)
 
+    def get_descendants(self):
+        descendants = []
+        children = self.children.all()
+        for child in children:
+            descendants.append(child)
+            descendants.extend(child.get_descendants())
+        return descendants
+
 class Product(models.Model):
     SKU = models.CharField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
@@ -46,13 +51,13 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True, related_name='products')
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, related_name='products')
 
     def __str__(self):
         return self.name
 
 class ProductImage(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, related_name='images')
     image = models.ImageField(upload_to=upload_to)
     is_main = models.BooleanField(default=False)
 
@@ -62,14 +67,14 @@ class ProductImage(models.Model):
         super(ProductImage, self).save(*args, **kwargs)
 
 class ProductBulletPoint(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='bullet_points')
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, related_name='bullet_points')
     text = models.CharField(max_length=255)
 
     def __str__(self):
         return self.text
 
 class ProductSpecification(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='specifications')
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, related_name='specifications')
     key = models.CharField(max_length=255)
     value = models.CharField(max_length=255)
 
