@@ -69,7 +69,7 @@ class CategoryView(generic.ListView):
         category_path = self.kwargs.get('category_slug').split('/')
         category_slug = category_path[-1]
         category = get_object_or_404(Category, slug=category_slug)
-        categories = [category] + category.get_descendants()
+        categories = [category] + list(category.get_descendants())
         return Product.objects.filter(category__in=categories)
 
     def get_context_data(self, **kwargs):
