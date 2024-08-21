@@ -1,6 +1,7 @@
 <!-- templates/index.html -->
 
 {% extends '_base.html' %}
+{% load product_list_tags %}
 
 {% block title %}
   Elding
@@ -32,9 +33,6 @@
 
 {% block content %}
 
-  <!-- New Breadcrumb -->
-  
-
   <div class="bg-none m-4">
     <div class="swiper mySwiper w-full md:flex md:items-center md:justify-between">
       <div class="swiper-wrapper">
@@ -49,6 +47,9 @@
       <div class="swiper-pagination"></div>
     </div>
   </div>
+
+  {% product_list_tag products_with_images %}
+
 {% endblock %}
 
 {% block extra_js %}
